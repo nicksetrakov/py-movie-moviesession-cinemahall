@@ -1,5 +1,6 @@
 from django.db.models import QuerySet
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 
 from db.models import Movie
 
@@ -19,10 +20,7 @@ def get_movies(
 
 
 def get_movie_by_id(movie_id: int) -> Movie:
-    try:
-        return Movie.objects.get(id=movie_id)
-    except Movie.DoesNotExist:
-        raise Http404(f"Movie with id {movie_id} does not exist.")
+    return get_object_or_404(Movie, id=movie_id)
 
 
 def create_movie(
