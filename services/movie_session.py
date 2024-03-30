@@ -1,6 +1,5 @@
 from django.db.models import QuerySet
-from django.http import Http404
-
+from django.shortcuts import get_object_or_404
 
 from db.models import MovieSession
 
@@ -27,11 +26,7 @@ def get_movies_sessions(session_date: str = None) -> QuerySet:
 
 
 def get_movie_session_by_id(movie_session_id: int) -> MovieSession:
-    try:
-        return MovieSession.objects.get(id=movie_session_id)
-    except MovieSession.DoesNotExist:
-        raise Http404(f"Movie Session with "
-                      f"id {movie_session_id} does not exist.")
+    return get_object_or_404(MovieSession, id=movie_session_id)
 
 
 def update_movie_session(
